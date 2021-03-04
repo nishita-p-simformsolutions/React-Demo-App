@@ -11,10 +11,12 @@ const reducer = (state = initialState, action) => {
     case actionTypes.USERS:
       return {
         ...state,
+        users: state.users,
       };
     case actionTypes.SETGETPARAMS:
       return {
         ...state,
+        page: actionTypes.SETGETPARAMS("get") || 1,
       };
     default:
       return state;
