@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+//import * as actionTypes from "../../store/actions";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import ReactTooltip from "react-tooltip";
@@ -80,7 +81,7 @@ const columns = [
   },
 ];
 
-export default function Users() {
+function Users() {
   const [users, setUsers] = useState({});
   const [page, setPage] = useState(setGetParams("get") || 1);
   const countPerPage = 6;
@@ -101,7 +102,6 @@ export default function Users() {
     if (type === "get") {
       return queryParams.get("page");
     }
-
     queryParams.set("page", page);
     window.history.replaceState(null, null, "?" + queryParams.toString());
   }
@@ -130,3 +130,5 @@ export default function Users() {
     </div>
   );
 }
+
+export default Users;
