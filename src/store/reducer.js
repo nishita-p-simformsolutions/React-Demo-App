@@ -1,4 +1,4 @@
-import * as actionTypes from "./actions";
+import { USERS, SETGETPARAMS } from "./types";
 
 const initialState = {
   users: 1,
@@ -8,15 +8,14 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.USERS:
+    case USERS:
       return {
         ...state,
         users: state.users,
       };
-    case actionTypes.SETGETPARAMS:
+    case SETGETPARAMS:
       return {
-        ...state,
-        page: actionTypes.SETGETPARAMS("get") || 1,
+        page: SETGETPARAMS("get") || 1,
       };
     default:
       return state;

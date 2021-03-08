@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-//import * as actionTypes from "../../store/actions";
 import axios from "axios";
+import { reducer } from "../../store/reducer";
+import { actions } from "../../store/actions";
+import { useSelector, useDispatch } from "react-redux";
 import DataTable from "react-data-table-component";
 import ReactTooltip from "react-tooltip";
 import "./User.css";
@@ -82,34 +84,44 @@ const columns = [
 ];
 
 function Users() {
-  const [users, setUsers] = useState({});
-  const [page, setPage] = useState(setGetParams("get") || 1);
-  const countPerPage = 6;
+  const users = useSelector((state) => state.users);
+  const setGetParams = useSelector((state) => state.setGetParams);
 
-  const getUser = async () => {
-    axios
-      .get(`https://reqres.in/api/users?page=${page}&per_page=${countPerPage}`)
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((err) => {
-        setUsers({});
-      });
-  };
-
-  function setGetParams(type) {
-    var queryParams = new URLSearchParams(window.location.search);
-    if (type === "get") {
-      return queryParams.get("page");
-    }
-    queryParams.set("page", page);
-    window.history.replaceState(null, null, "?" + queryParams.toString());
-  }
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getUser();
-    setGetParams();
-  }, [page]);
+    dispatch(actions.getUser);
+    dispatch(actions.setGetParams("get"));
+  }, [dispatch]);
+
+  //   const [users, setUsers] = useState({});
+  //   const [page, setPage] = useState(setGetParams("get") || 1);
+  //   const countPerPage = 6;
+
+  //   const getUser = async () => {
+  //     axios
+  //       .get(`https://reqres.in/api/users?page=${page}&per_page=${countPerPage}`)
+  //       .then((res) => {
+  //         setUsers(res.data);
+  //       })
+  //       .catch((err) => {
+  //         setUsers({});
+  //       });
+  //   };
+
+  //   function setGetParams(type) {
+  //     var queryParams = new URLSearchParams(window.location.search);
+  //     if (type === "get") {
+  //       return queryParams.get("page");
+  //     }
+  //     queryParams.set("page", page);
+  //     window.history.replaceState(null, null, "?" + queryParams.toString());
+  //   }
+
+  //   useEffect(() => {
+  //     getUser();
+  //     setGetParams();
+  //   }, [page]);
 
   return (
     <div className="App">
@@ -119,13 +131,13 @@ function Users() {
         pagination
         paginationServer
         paginationTotalRows={users.total}
-        paginationPerPage={countPerPage}
+        paginationPerPage={users.countPerPage}
         paginationIconFirstPage
         paginationIconLastPage
         paginationComponentOptions={{
           noRowsPerPage: true,
         }}
-        onChangePage={(page) => setPage(page)}
+        onChangePage={(page) => users.setPage(page)}
       />
     </div>
   );
