@@ -11,11 +11,11 @@ const reducer = (state = initialState, action) => {
     case USERS:
       return {
         ...state,
-        users: state.users,
+        users: action.payload,
       };
     case SETGETPARAMS:
       return {
-        page: SETGETPARAMS("get") || 1,
+        page: action.payload,
       };
     default:
       return state;
