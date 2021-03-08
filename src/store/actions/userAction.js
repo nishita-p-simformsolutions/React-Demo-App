@@ -9,10 +9,10 @@ export const getUser = () => {
         `https://reqres.in/api/users?page=${reducer.page}&per_page=${reducer.countPerPage}`
       )
       .then((res) => {
-        reducer.setUsers(res.data);
+        reducer.USERS(res.data);
       })
       .catch((err) => {
-        reducer.setUsers({});
+        reducer.USERS({});
       });
   };
 };
