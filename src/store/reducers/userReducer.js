@@ -1,7 +1,7 @@
-import { USERS, SETGETPARAMS } from "./types";
+import { USERS, SETGETPARAMS } from "../types";
 
 const initialState = {
-  users: 1,
+  users: [],
   page: 1,
   countPerPage: 6,
 };

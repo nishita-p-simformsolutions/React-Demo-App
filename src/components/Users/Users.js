@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { reducer } from "../../store/reducer";
-import { actions } from "../../store/actions";
+import { getUser, setGetParams } from "../../store/actions/userAction";
 import { useSelector, useDispatch } from "react-redux";
 import DataTable from "react-data-table-component";
 import ReactTooltip from "react-tooltip";
@@ -85,13 +84,13 @@ const columns = [
 
 function Users() {
   const users = useSelector((state) => state.users);
-  const setGetParams = useSelector((state) => state.setGetParams);
+  // const setGetParams = useSelector((state) => state.setGetParams);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.getUser);
-    dispatch(actions.setGetParams("get"));
+    dispatch(getUser);
+    dispatch(setGetParams("get"));
   }, [dispatch]);
 
   //   const [users, setUsers] = useState({});
